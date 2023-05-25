@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.advice.Alreadyexist;
+import com.advice.NotFound;
 import com.converter.StudentConverter;
 import com.dto.StudentDto;
 import com.entity.Student;
@@ -33,6 +34,18 @@ public class StudentServiceImpl implements StudentService {
 		
 		
 		
+	}
+
+	@Override
+	public StudentDto findStudent(Integer sId) {
+		Student studententity =  studentRepo.findById(sId).orElse(null);
+		
+		if(studententity != null)
+		{
+			return studentConverter.studentToStudenDto(studententity);
+			 
+		}
+		 throw new NotFound("Student Not Found...");
 	}
 	
 

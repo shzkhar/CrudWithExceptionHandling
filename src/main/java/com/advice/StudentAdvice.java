@@ -21,4 +21,15 @@ public class StudentAdvice extends ResponseEntityExceptionHandler{
 		
 		return new ResponseEntity(exceptionResponce, HttpStatus.ALREADY_REPORTED);
 	}
+	
+	@ExceptionHandler(NotFound.class)
+	public ResponseEntity<Object> handleNotFoundException(NotFound exception){
+		ExceptionResponce exceptionResponce = new ExceptionResponce();
+		
+		exceptionResponce.setCode(HttpStatus.NOT_FOUND.value());
+		exceptionResponce.setMsg(exception.getMessage());
+		exceptionResponce.setLocalDateTime(LocalDateTime.now());
+		
+		return new ResponseEntity(exceptionResponce,HttpStatus.NOT_FOUND);
+	}
 }
